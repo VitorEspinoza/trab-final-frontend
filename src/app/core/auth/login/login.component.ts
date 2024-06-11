@@ -45,9 +45,6 @@ export class LoginComponent {
   visibilityInfo = "Mostrar Senha"
   submittingForm: boolean = false;
 
-  constructor() { }
-  ngOnInit(): void {}
-
   onSubmit() {
     this.submittingForm = true;
     this.authService.login(this.loginForm.getRawValue()).pipe(
@@ -59,7 +56,7 @@ export class LoginComponent {
   ).subscribe({
       next: (success: boolean) => {
         if (success)
-          this.router.navigate(['/home']);
+          this.router.navigate(['']);
         else
          console.log("Login failed");
       }

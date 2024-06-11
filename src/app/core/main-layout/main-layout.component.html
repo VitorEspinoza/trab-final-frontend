@@ -1,0 +1,35 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <button (click)="drawer.toggle()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="flex items-center justify-between w-full ">
+    <h1>Plano de Saúde</h1>
+    <div class="flex justify-center items-center gap-4">
+      <h2>{{ authService.currentUserSig()?.name }}</h2>
+      <button class="flex items-center logout-button" mat-icon-button (click)=" authService.logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+
+
+</mat-toolbar>
+<mat-drawer-container autosize>
+  <mat-drawer #drawer opened="true" mode="side" position="start">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let menuItem of this.permissionService.getMenuItens(authService.currentUserSig()?.role)">
+        <button class="flex items-center gap-2" [routerLink]="menuItem.link" mat-button-icon>
+          <mat-icon>{{ menuItem.icon}}</mat-icon>
+          {{ menuItem.label }}
+        </button>
+      </mat-list-item>
+
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="text-align: center;min-height: 600px;">
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

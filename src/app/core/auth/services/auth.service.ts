@@ -35,6 +35,7 @@ login(credentials: { email: string, password: string}): Observable<boolean> {
   logout() {
     localStorage.removeItem('token');
     this.currentUserSig.set(null);
+    this.router.navigate(['/login']);
   }
 
 

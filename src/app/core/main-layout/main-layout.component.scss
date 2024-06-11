@@ -1,0 +1,12 @@
+mat-drawer-container {
+    height: 100%;
+}
+
+mat-drawer {
+    overflow: auto;
+}
+
+.logout-button:hover mat-icon {
+  color: red;
+  font-weight: 500;
+}
