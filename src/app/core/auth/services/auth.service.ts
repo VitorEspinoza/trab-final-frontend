@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../models/login-response.model';
 import { User } from '../models/user.model';
  import { catchError, map } from 'rxjs/operators';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -23,7 +23,6 @@ login(credentials: { email: string, password: string}): Observable<boolean> {
     map((response: LoginResponse) => {
       localStorage.setItem('token', response.accessToken);
       this.currentUserSig.set(response.user);
-      console.log("setei", this.currentUserSig())
       return true;
     }),
     catchError((error) => {
