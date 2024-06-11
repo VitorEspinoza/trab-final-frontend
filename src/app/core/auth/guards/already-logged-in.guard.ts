@@ -8,7 +8,7 @@ export function AlreadyLoggedInGuard(route: ActivatedRouteSnapshot, state: Route
   const router = inject(Router);
   const user = authService.currentUserSig();
     if (user) {
-      router.navigate(['/home']);
+      router.navigate(['']);
       return false;
     }
     return true;
