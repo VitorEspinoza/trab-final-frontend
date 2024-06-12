@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { finalize, take } from 'rxjs';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginComponent {
   http = inject(HttpClient);
   authService = inject(AuthService);
   cd = inject(ChangeDetectorRef)
+  notificationService = inject(NotificationService);
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -58,7 +60,7 @@ export class LoginComponent {
         if (success)
           this.router.navigate(['']);
         else
-         console.log("Login failed");
+         this.notificationService.showNotification({ message: 'Usuário ou senha inválidos', title: 'Erro', type: 'error', duration: 3000 });
       }
     });
     }

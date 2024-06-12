@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { EMPTY, Observable, switchMap } from 'rxjs';
 import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-doctors-list',
@@ -39,6 +40,7 @@ export class DoctorsListComponent implements OnInit {
   doctorsService = inject(DoctorsService);
   authService = inject(AuthService);
   dialog = inject(MatDialog)
+  notificationService = inject(NotificationService);
 
   constructor() {
     this.dataSource = new MatTableDataSource<Doctor>();
@@ -81,7 +83,7 @@ export class DoctorsListComponent implements OnInit {
 
 
   handleError(error: any) {
-    console.error('Ocorreu um erro ao buscar os médicos', error);
+    this.notificationService.showNotification({ message: 'Erro buscar os médicos', type: 'error', title: 'Erro'});
   }
 
   applyFilter(event: Event) {
@@ -108,9 +110,10 @@ export class DoctorsListComponent implements OnInit {
       ).subscribe({
       next: () => {
         this.dataSource.data = this.dataSource.data.filter(d => d.doctorId !== doctor.doctorId);
+        this.notificationService.showNotification({ message: 'Excluído com sucesso!', type: 'success', title: 'Médico Excluído', duration: 3000});
       },
       error: (error) => {
-        console.error('Ocorreu um erro ao excluir o médico', error);
+        this.notificationService.showNotification({ message: 'Erro ao excluir médico', type: 'error', title: 'Erro'});
       }
     });
   }
