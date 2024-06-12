@@ -1,0 +1,64 @@
+<mat-form-field>
+  <mat-label>Filtro</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Pesquise o valor de qualquer coluna" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+
+    <ng-container matColumnDef="document">
+      <th mat-header-cell *matHeaderCellDef> Cpf </th>
+      <td mat-cell *matCellDef="let row"> {{row.document}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="unit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidade </th>
+      <td mat-cell *matCellDef="let row"> {{row.unit.displayName}} </td>
+    </ng-container>
+
+    <ng-container *ngIf="isAdmin">
+      <ng-container matColumnDef="settings">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td style=" text-align: right;" mat-cell *matCellDef="let row"> <button mat-icon-button
+            [matMenuTriggerFor]="settingsMenu" [matMenuTriggerFor]="settingsMenu" [matMenuTriggerData]="{row: row}">
+            <mat-icon>settings</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="!isAdmin">
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td style=" text-align: right;" mat-cell *matCellDef="let row"> <button mat-icon-button
+            matTooltip="Visualizar Doutor" (click)="viewDoctor(row.doctorId)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef=" displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Não encontramos um médico com o dado "{{input.value}}" :(</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Selecione o tamanho da página"></mat-paginator>
+</div>
+
+<mat-menu #settingsMenu="matMenu">
+  <ng-template matMenuContent let-row="row">
+    <button mat-button-icon mat-menu-item (click)="editDoctor(row.doctorId)"> <mat-icon>edit</mat-icon> Editar</button>
+    <button mat-button-icon mat-menu-item (click)="deleteDoctor(row)"> <mat-icon>delete</mat-icon>
+      Remover</button>
+  </ng-template>
+
+</mat-menu>
