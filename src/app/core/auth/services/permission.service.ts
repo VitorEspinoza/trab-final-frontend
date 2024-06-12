@@ -9,7 +9,15 @@ export class PermissionService {
   constructor() { }
 
   getMenuItens(Role: string): menuItem[]{
-    const menuItens =  [];
+    const menuItens =  [
+      {
+        label: 'Médicos',
+        link: '/doctors',
+        icon: 'medical_information',
+        permission: ['ADMIN', 'ASSOCIATE']
+      },
+
+    ];
     return menuItens.filter(item => item.permission.includes(Role));
   }
 
