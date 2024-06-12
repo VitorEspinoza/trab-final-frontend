@@ -87,3 +87,20 @@ table {
 td, th {
   width: 25%;
 }
+
+
+.mat-mdc-snack-bar-container.error-notification .mdc-snackbar__surface {
+  background-color: #f8d7da !important;
+}
+
+.mat-mdc-snack-bar-container.success-notification .mdc-snackbar__surface {
+  background-color: #d4edda !important;
+}
+
+.mat-mdc-snack-bar-container.warning-notification .mdc-snackbar__surface {
+  background-color: #fff3cd !important;
+}
+
+.mat-mdc-snack-bar-container.info-notification .mdc-snackbar__surface {
+  background-color: #d1ecf1 !important;
+}
