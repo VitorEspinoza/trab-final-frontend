@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 
 import { authGuard } from './core/auth/guards/auth.guard';
@@ -11,7 +10,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('../app/core/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
     data: { permissions: ['ASSOCIATE', 'ADMIN']},
-    children: []
+    children: [
+      {
+        path: 'doctors',
+        data: { permissions: ['ASSOCIATE', 'ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/doctors/doctors-list/doctors-list.component').then(m => m.DoctorsListComponent),
+      },
+    ]
    },
   {
     path: 'login',
