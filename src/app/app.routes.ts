@@ -33,7 +33,7 @@ export const routes: Routes = [
         path: 'associates',
         data: { permissions: ['ADMIN']},
         canActivate: [authGuard],
-        loadComponent: () => import('./core/associates/associates/associates.component').then(m => m.AssociatesComponent),
+        loadComponent: () => import('./core/associates/associates/associates-list.component').then(m => m.AssociatesListComponent),
       },
     ]
    },
