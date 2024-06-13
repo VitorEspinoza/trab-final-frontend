@@ -16,6 +16,12 @@ export class PermissionService {
         icon: 'medical_information',
         permission: ['ADMIN', 'ASSOCIATE']
       },
+      {
+        label: 'Unidades',
+        link: '/units',
+        icon: 'apartment',
+        permission: ['ADMIN', 'ASSOCIATE']
+      },
 
     ];
     return menuItens.filter(item => item.permission.includes(Role));
