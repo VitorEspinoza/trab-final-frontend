@@ -28,6 +28,12 @@ export class PermissionService {
         icon: 'health_and_safety',
         permission: ['ADMIN']
       },
+      {
+        label: 'Associados',
+        link: '/associates',
+        icon: 'face',
+        permission: ['ADMIN']
+      },
 
     ];
     return menuItens.filter(item => item.permission.includes(Role));
