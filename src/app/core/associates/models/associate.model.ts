@@ -2,12 +2,12 @@ import { User } from "../../auth/models/user.model"
 import { Address } from "../../shared/models/address.model"
 
 export interface Associate {
-  associateId: String,
-  phone: String,
+  associateId: string,
+  phone: string,
   birthAt: Date,
-  document: String,
-  healthInsuranceIdentifier: String,
-  addressId: String,
+  document: string,
+  healthInsuranceIdentifier: string,
+  addressId: string,
   address: Address,
   user: User
 }
