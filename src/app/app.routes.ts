@@ -1,5 +1,3 @@
-
-
 import { Routes } from '@angular/router';
 
 import { authGuard } from './core/auth/guards/auth.guard';
@@ -30,6 +28,12 @@ export const routes: Routes = [
         data: { permissions: ['ADMIN']},
         canActivate: [authGuard],
         loadComponent: () => import('./core/specialties/specialties-list/specialties-list.component').then(m => m.SpecialtiesListComponent),
+      },
+      {
+        path: 'associates',
+        data: { permissions: ['ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/associates/associates/associates-list.component').then(m => m.AssociatesListComponent),
       },
     ]
    },
