@@ -12,6 +12,12 @@ export const routes: Routes = [
     data: { permissions: ['ASSOCIATE', 'ADMIN']},
     children: [
       {
+        path: 'profile',
+        data: { permissions: ['ASSOCIATE', 'ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/profile/profile-component/profile.component').then(m => m.ProfileComponent),
+      },
+      {
         path: 'doctors',
         data: { permissions: ['ASSOCIATE', 'ADMIN']},
         canActivate: [authGuard],
