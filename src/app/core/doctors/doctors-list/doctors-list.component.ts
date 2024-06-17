@@ -133,7 +133,7 @@ export class DoctorsListComponent implements OnInit {
   }
 
   viewDoctor(id: string) {
-    console.log('View doctor', id);
+    this.router.navigate(['doctors', 'view', `${id}`]);
   }
 
 }
