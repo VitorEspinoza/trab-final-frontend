@@ -1,1 +1,36 @@
-<p>doctors-form works!</p>
+<form [formGroup]="doctorsForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name" required>
+    <mat-error *ngIf="doctorsForm.get('name').hasError('required')">O nome é obrigatório</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Cpf</mat-label>
+    <input matInput formControlName="document" required>
+    <mat-error *ngIf="doctorsForm.get('document').hasError('required')">O CPF é obrigatório</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-select placeholder="Selecione a unidade" formControlName="unitId">
+      <mat-option *ngFor="let unit of units" [value]="unit.unitId"> {{ unit.displayName }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="doctorsForm.get('unitId').hasError('required')">A unidade é obrigatória</mat-error>
+  </mat-form-field>
+
+  <app-specialties-select [selectedSpecialties]="savedSpecialties" [parentForm]="doctorsForm"></app-specialties-select>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>CRM do Médico</mat-label>
+    <input matInput formControlName="medicalRegistrationNumber" required>
+    <mat-error *ngIf="doctorsForm.get('medicalRegistrationNumber').hasError('required')">O CRM é obrigatório</mat-error>
+  </mat-form-field>
+
+  <div class="flex gap-4 py-4">
+    <button mat-raised-button color="secondary" type="button" (click)="this.goBack()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [class.spinner]="submittingForm"
+      [disabled]="doctorsForm.invalid || submittingForm">Salvar</button>
+  </div>
+
+</form>
