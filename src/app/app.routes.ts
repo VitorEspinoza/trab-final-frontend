@@ -76,6 +76,18 @@ export const routes: Routes = [
         canActivate: [authGuard],
         loadComponent: () => import('./core/specialties/specialties-list/specialties-list.component').then(m => m.SpecialtiesListComponent),
       },
+         {
+        path: 'specialties/create',
+        data: { permissions: ['ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/specialties/specialties-form/specialties-form.component').then(m => m.SpecialtiesFormComponent),
+      },
+         {
+        path: 'specialties/edit/:id',
+        data: { permissions: ['ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/specialties/specialties-form/specialties-form.component').then(m => m.SpecialtiesFormComponent),
+      },
       {
         path: 'associates',
         data: { permissions: ['ADMIN']},
