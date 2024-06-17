@@ -1,1 +1,29 @@
-<p>doctors-view works!</p>
+<h2>{{ doctor?.name }}</h2>
+
+<div class="doctor-container flex flex-col items-center gap-4 p-4">
+  <div class="flex gap-8">
+    <div class="flex flex-col items-start">
+      <h3>Dados Pessoais</h3>
+
+      <p><strong>CRM:</strong> {{ doctor?.medicalRegistrationNumber }}</p>
+      <p><strong>Especialidades:</strong></p>
+      <div class="specialties">
+        <mat-chip-set>
+          <mat-chip *ngFor="let specialty of doctor?.specialties"
+             selected="true">
+            {{ specialty.name }} {{ specialty.isPrincipalSpecialty ? '(Principal)' : ''}}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+    <div class="flex flex-col items-start">
+      <h3>Unidade de atendimento</h3>
+      <p><strong>Rua:</strong> {{ doctor?.unit.address.street }}</p>
+      <p><strong>Número:</strong> {{ doctor?.unit.address.number }}</p>
+      <p><strong>Bairro:</strong> {{ doctor?.unit.address.neighborhood }}</p>
+      <p><strong>Cidade:</strong> {{ doctor?.unit.address.city }}</p>
+      <p><strong>Estado:</strong> {{ doctor?.unit.address.state }}</p>
+      <p><strong>CEP:</strong> {{ doctor?.unit.address.zipCode | cep}}</p>
+    </div>
+  </div>
+</div>
