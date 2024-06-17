@@ -17,11 +17,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { EMPTY, Observable, switchMap } from 'rxjs';
 import { ConfirmModalComponent } from '../../shared/components/confirm-modal/confirm-modal.component';
 import { NotificationService } from '../../shared/services/notification.service';
+import { Router, RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-doctors-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule, MatButtonModule, RouterModule],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr }
   ],
@@ -41,6 +43,7 @@ export class DoctorsListComponent implements OnInit {
   authService = inject(AuthService);
   dialog = inject(MatDialog)
   notificationService = inject(NotificationService);
+  router = inject(Router);
 
   constructor() {
     this.dataSource = new MatTableDataSource<Doctor>();
@@ -96,7 +99,7 @@ export class DoctorsListComponent implements OnInit {
   }
 
   editDoctor(id: string) {
-    console.log('Edit doctor', id);
+    this.router.navigate([`/doctors/edit/${id}`]);
   }
 
   deleteDoctor(doctor: Doctor) {

@@ -29,6 +29,18 @@ export const routes: Routes = [
         loadComponent: () => import('./core/doctors/doctors-list/doctors-list.component').then(m => m.DoctorsListComponent),
       },
       {
+        path: 'doctors/create',
+        data: { permissions: ['ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/doctors/doctors-form/doctors-form.component').then(m => m.DoctorsFormComponent),
+      },
+      {
+        path: 'doctors/edit/:id',
+        data: { permissions: ['ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/doctors/doctors-form/doctors-form.component').then(m => m.DoctorsFormComponent),
+      },
+      {
         path: 'units',
         data: { permissions: ['ASSOCIATE', 'ADMIN']},
         canActivate: [authGuard],
