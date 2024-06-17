@@ -52,7 +52,19 @@ export const routes: Routes = [
         canActivate: [authGuard],
         loadComponent: () => import('./core/units/units-list/units-list.component').then(m => m.UnitsListComponent),
       },
-        {
+      {
+        path: 'units/create',
+        data: { permissions: ['ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/units/units-form/units-form.component').then(m => m.UnitsFormComponent),
+      },
+      {
+        path: 'units/edit/:id',
+        data: { permissions: ['ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/units/units-form/units-form.component').then(m => m.UnitsFormComponent),
+      },
+      {
         path: 'units/view/:id',
         data: { permissions: ['ASSOCIATE']},
         canActivate: [authGuard],
