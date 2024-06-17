@@ -1,0 +1,22 @@
+<ng-container [formGroup]="parentForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Especialidades</mat-label>
+    <mat-select formControlName="specialties" multiple (selectionChange)="selectSpecialty($event)">
+      <mat-option *ngFor="let specialty of specialties" [value]="specialty.specialtyId">
+        {{specialty.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="parentForm.get('specialties').hasError('required')">É necessário ter ao menos uma
+      especialidade</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill" *ngIf="parentForm.get('specialties').value.length > 0">
+    <mat-label>Marque as especialidades principais</mat-label>
+    <mat-select formControlName="principalSpecialties" multiple (selectionChange)="selectPrincipalSpecialties($event)">
+      <mat-option *ngFor="let specialtyId of parentForm.get('specialties').value" [value]="specialtyId">
+        {{specialtyDetails[specialtyId]?.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="parentForm.get('principalSpecialties').hasError('required')">É necessário ter ao menos uma
+      especialidade principal</mat-error>
+  </mat-form-field>
+</ng-container>
