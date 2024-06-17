@@ -1,6 +1,6 @@
 import { Component, ViewChild, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { switchMap, EMPTY, Observable } from 'rxjs';
@@ -16,11 +16,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UnitsService } from '../shared/units.service';
+import { MatPaginatorIntlPtBr } from '../../shared/settings/mat-paginator-intl-pt-br.settings';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-units-list',
   standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule],
+  providers: [
+   { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr }
+  ],
   templateUrl: './units-list.component.html',
   styleUrl: './units-list.component.scss'
 })
@@ -37,6 +42,7 @@ displayedColumns: string[] = ['displayName', 'address', 'specialties'];
   authService = inject(AuthService);
   dialog = inject(MatDialog)
   notificationService = inject(NotificationService);
+  router = inject(Router);
 
   constructor() {
     this.dataSource = new MatTableDataSource<Unit>();
@@ -139,6 +145,6 @@ displayedColumns: string[] = ['displayName', 'address', 'specialties'];
   }
 
   viewUnit(id: string) {
-    console.log('View unit', id);
+    this.router.navigate(['units', 'view', `${id}`]);
   }
 }
