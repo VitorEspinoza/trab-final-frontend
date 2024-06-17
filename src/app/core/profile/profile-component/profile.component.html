@@ -1,1 +1,44 @@
-<p>profile works!</p>
+<h2>Meu Perfil</h2>
+
+<ng-template [ngIf]="!isAdmin">
+  <div class="profile-container flex flex-col items-center gap-4 p-4">
+    <img [src]="'https:' + profile?.user.photo_url" alt="Foto do usuário" (error)="setDefaultImage()">
+
+    <div class="flex gap-8">
+      <div class="flex flex-col items-start">
+        <h3>Dados Pessoais</h3>
+
+        <p><strong>Nome:</strong> {{ profile?.user.name }}</p>
+        <p><strong>Email:</strong> {{ profile?.user.email }}</p>
+
+        <p><strong>Telefone:</strong> {{ profile?.phone | phone }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ profile?.birthAt | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Documento:</strong> {{ profile?.document | cpf}}</p>
+        <p><strong>Número da carteirinha:</strong> {{ profile?.healthInsuranceIdentifier }}</p>
+      </div>
+      <div class="flex flex-col items-start">
+        <h3>Endereço</h3>
+
+        <p><strong>Rua:</strong> {{ profile?.address.street }}</p>
+        <p><strong>Bairro:</strong> {{ profile?.address.neighborhood }}</p>
+        <p><strong>Cidade:</strong> {{ profile?.address.city }}</p>
+        <p><strong>Estado:</strong> {{ profile?.address.state }}</p>
+        <p><strong>CEP:</strong> {{ profile?.address.zipCode | cep}}</p>
+      </div>
+    </div>
+
+    <button mat-flat-button color="primary" (click)="editAssociate()">Editar</button>
+  </div>
+
+</ng-template>
+
+<ng-template [ngIf]="isAdmin">
+  <div class="flex flex-col items-center gap-2 p-4">
+    <img [src]="imgUrl" (error)="setDefaultImage()">
+
+    <p><strong>Nome:</strong> {{ profile?.name }}</p>
+    <p><strong>Email:</strong> {{ profile?.email }}</p>
+
+  </div>
+
+</ng-template>
