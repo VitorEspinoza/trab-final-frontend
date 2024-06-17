@@ -29,6 +29,12 @@ export const routes: Routes = [
         loadComponent: () => import('./core/doctors/doctors-list/doctors-list.component').then(m => m.DoctorsListComponent),
       },
       {
+        path: 'doctors/view/:id',
+        data: { permissions: ['ASSOCIATE']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/doctors/doctors-view/doctors-view.component').then(m => m.DoctorsViewComponent),
+      },
+      {
         path: 'doctors/create',
         data: { permissions: ['ADMIN']},
         canActivate: [authGuard],
