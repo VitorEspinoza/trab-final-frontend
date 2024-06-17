@@ -1,3 +1,7 @@
+<button mat-mini-fab matTooltip="Adicionar médico" [routerLink]="['create']" color="primary" class="add-button">
+  <mat-icon>add</mat-icon>
+</button>
+
 <mat-form-field>
   <mat-label>Filtro</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Pesquise o valor de qualquer coluna" #input>
@@ -39,7 +43,7 @@
 
 <mat-menu #settingsMenu="matMenu">
   <ng-template matMenuContent let-row="row">
-    <button mat-button-icon mat-menu-item (click)="editSpecialty(row.doctorId)"> <mat-icon>edit</mat-icon>
+    <button mat-button-icon mat-menu-item (click)="editSpecialty(row.specialtyId)"> <mat-icon>edit</mat-icon>
       Editar</button>
     <button mat-button-icon mat-menu-item (click)="deleteSpecialty(row)"> <mat-icon>delete</mat-icon>
       Remover</button>
