@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { Validators, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +22,8 @@ import { NotificationService } from '../../shared/services/notification.service'
       MatInputModule,
       MatButtonModule,
       MatIconModule,
-      MatTooltipModule
+      MatTooltipModule,
+      RouterModule
     ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

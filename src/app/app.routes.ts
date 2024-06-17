@@ -64,11 +64,27 @@ export const routes: Routes = [
         canActivate: [authGuard],
         loadComponent: () => import('./core/associates/associates/associates-list.component').then(m => m.AssociatesListComponent),
       },
+      {
+        path: 'associates/create',
+        data: { permissions: ['ASSOCIATE', 'ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/associates/associates-form/associates-form.component').then(m => m.AssociatesFormComponent),
+      },
+      {
+        path: 'associates/edit/:id',
+        data: { permissions: ['ASSOCIATE', 'ADMIN']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/associates/associates-form/associates-form.component').then(m => m.AssociatesFormComponent),
+      },
     ]
    },
   {
     path: 'login',
     canActivate: [AlreadyLoggedInGuard],
     loadComponent: () => import('./core/auth/login/login.component').then(m => m.LoginComponent),
-  }
+  },
+  {
+      path: 'register',
+      loadComponent: () => import('./core/associates/associates-form/associates-form.component').then(m => m.AssociatesFormComponent),
+  },
 ];
