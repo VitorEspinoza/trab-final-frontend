@@ -12,6 +12,11 @@ export const routes: Routes = [
     data: { permissions: ['ASSOCIATE', 'ADMIN']},
     children: [
       {
+        path: '',
+        redirectTo: '/profile',
+        pathMatch: 'full',
+      },
+      {
         path: 'profile',
         data: { permissions: ['ASSOCIATE', 'ADMIN']},
         canActivate: [authGuard],
