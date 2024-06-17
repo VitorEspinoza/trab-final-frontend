@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -16,11 +16,17 @@ import { ConfirmModalComponent } from '../../shared/components/confirm-modal/con
 import { NotificationService } from '../../shared/services/notification.service';
 import { AssociatesService } from '../shared/associates.service';
 import { cpfPipe } from '../../shared/pipes/cpf.pipe';
+import { MatPaginatorIntlPtBr } from '../../shared/settings/mat-paginator-intl-pt-br.settings';
+import { Router, RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-associates',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule, cpfPipe],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule, cpfPipe, RouterModule, MatButtonModule],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr }
+  ],
   templateUrl: './associates-list.component.html',
   styleUrl: './associates-list.component.scss'
 })
@@ -35,7 +41,7 @@ export class AssociatesListComponent {
   authService = inject(AuthService);
   dialog = inject(MatDialog)
   notificationService = inject(NotificationService);
-
+  router = inject(Router);
   constructor() {
     this.dataSource = new MatTableDataSource<Associate>();
   }
@@ -76,7 +82,7 @@ export class AssociatesListComponent {
   }
 
   editAssociate(id: string) {
-    console.log('Edit associate', id);
+    this.router.navigate([`/associates/edit/${id}`]);
   }
 
   deleteAssociate(associate: Associate) {
