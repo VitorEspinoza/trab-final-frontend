@@ -10,11 +10,12 @@ import { cpfPipe } from '../../shared/pipes/cpf.pipe';
 import { PhonePipe } from '../../shared/pipes/phone.pipe';
 import { CepPipe } from '../../shared/pipes/cep.pipe';
 import { NotificationService } from '../../shared/services/notification.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, cpfPipe, PhonePipe, CepPipe],
+  imports: [CommonModule, MatButtonModule, cpfPipe, PhonePipe, CepPipe, RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -22,6 +23,8 @@ export class ProfileComponent {
   authService = inject(AuthService);
   profileService = inject(ProfileService);
   notificationService = inject(NotificationService);
+  router = inject(Router);
+
   role = Role;
   actualUser = this.authService.currentUserSig();
   isAdmin = this.actualUser.role === Role.ADMIN;
@@ -48,7 +51,7 @@ export class ProfileComponent {
   }
 
   editAssociate() {
-    console.log('edit associate');
+    this.router.navigate(['associates', 'edit', this.profile.associateId]);
   }
 
   setDefaultImage() {
