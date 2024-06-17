@@ -16,4 +16,8 @@ export class AssociatesService {
   deleteAssociate(id: string) {
     return this.http.delete(`http://localhost:3000/associates/${id}`).pipe(take(1));
   }
+
+  getAssociateById(id: string) {
+    return this.http.get(`http://localhost:3000/associates/${id}`).pipe(take(1));
+  }
 }
