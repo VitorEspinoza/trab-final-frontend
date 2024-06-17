@@ -1,6 +1,6 @@
 import { User } from './../../auth/models/user.model';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from '../../shared/enums/role.enum';
 import { ProfileService } from '../shared/profile.service';
@@ -24,6 +24,7 @@ export class ProfileComponent {
   profileService = inject(ProfileService);
   notificationService = inject(NotificationService);
   router = inject(Router);
+  cdr = inject(ChangeDetectorRef);
 
   role = Role;
   actualUser = this.authService.currentUserSig();
@@ -42,7 +43,9 @@ export class ProfileComponent {
     this.profileService.getData(this.actualUser.userId, this.isAdmin).subscribe({
         next: (data: User | Associate) => {
           this.profile = data;
-          this.isAdmin ? this.imgUrl = 'https:' + this.profile.imgUrl : this.imgUrl = 'https:' + this.profile.user.imgUrl;
+          console.log(this.profile.photo_url,  this.profile.user.photo_url, this.profile.photo_url || this.profile.user.photo_url);
+          this.setProfileImage(this.profile.photo_url || this.profile.user.photo_url);
+
         },
         error: () => {
           this.notificationService.showNotification({ message: 'Houve um problema ao carregar seus dados', title: "Erro", type: 'error'});
@@ -50,6 +53,11 @@ export class ProfileComponent {
     });
   }
 
+  setProfileImage(url) {
+    if(!url) return;
+
+    this.imgUrl = 'https://' + url;
+  }
   editAssociate() {
     this.router.navigate(['associates', 'edit', this.profile.associateId]);
   }

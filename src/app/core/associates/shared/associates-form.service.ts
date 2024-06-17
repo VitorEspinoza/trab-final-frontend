@@ -15,22 +15,28 @@ export class AssociatesFormService {
   }
 
   updateAssociate(id, associateForm, photo) {
-    const body = this.mountMultiPartFormData(associateForm, photo);
+    const body = this.mountMultiPartFormData(associateForm, photo, true);
     return this.http.put(`http://localhost:3000/associates/${id}`, body).pipe(take(1));
   }
 
-  mountMultiPartFormData(associateForm, photo) {
+  mountMultiPartFormData(associateForm, photo, isEdit = false) {
     let formData = new FormData();
+    console.log(isEdit)
+
+    let user: any = {
+      name: associateForm.get('name').value,
+      email: associateForm.get('email').value,
+    };
+
+    if(!isEdit)
+      user = {...user, password: associateForm.get('password').value}
 
     formData.append('document', associateForm.get('document').value);
     formData.append('birthAt', associateForm.get('birthAt').value);
     formData.append('phone', associateForm.get('phone').value);
     if(photo != null)
     formData.append('photo', photo);
-    formData.append('user', JSON.stringify({
-      name: associateForm.get('name').value,
-      email: associateForm.get('email').value,
-    }));
+    formData.append('user', JSON.stringify(user));
     formData.append('address', JSON.stringify({
       street: associateForm.get('street').value,
       number: associateForm.get('number').value,

@@ -52,9 +52,11 @@ export class AssociatesFormComponent implements OnInit{
   inputType = 'password';
   selectedFile = null;
   photoLabel = 'Enviar foto';
-  isAdmin = this.authService.currentUserSig().role === Role.ADMIN;
+  isAdmin = this.authService.currentUserSig()?.role === Role.ADMIN;
+  isRegister = this.route.snapshot.url[0]?.path === 'register';
 
   ngOnInit() {
+    console.log(this.route.snapshot)
     this.associatesForm = this.buildForm();
     this.isEdit ? this.editFlow() : this.createFlow();
   }
@@ -107,9 +109,13 @@ buildForm() {
 
   create() {
     this.associatesFormService.createAssociate(this.associatesForm, this.selectedFile).subscribe({
-      next: () => {
+      next: (response: any) => {
         this.notificationService.showNotification({ message: 'Associado criado com sucesso!', type: 'success', title: 'Sucesso!'});
-        this.goBack();
+        if(this.isRegister) {
+          this.authService.setAuthentication(response.accessToken, response.associate.user);
+          return this.router.navigate(['']);
+        }
+        return this.goBack();
       },
       error: (error) => {
         this.notificationService.showNotification({ message: 'Erro ao criar associado', type: 'error', title: 'Erro!'});

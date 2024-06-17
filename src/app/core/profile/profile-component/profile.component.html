@@ -2,7 +2,7 @@
 
 <ng-template [ngIf]="!isAdmin">
   <div class="profile-container flex flex-col items-center gap-4 p-4">
-    <img [src]="'https:' + profile?.user.photo_url" alt="Foto do usuário" (error)="setDefaultImage()">
+    <img [src]="imgUrl" alt="Foto do usuário" (error)="setDefaultImage()">
 
     <div class="flex gap-8">
       <div class="flex flex-col items-start">

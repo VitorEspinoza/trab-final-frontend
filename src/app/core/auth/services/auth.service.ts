@@ -18,19 +18,18 @@ export class AuthService {
 
 
 
-login(credentials: { email: string, password: string}): Observable<boolean> {
-  return this.http.post<LoginResponse>('http://localhost:3000/auth/login', credentials).pipe(
-    map((response: LoginResponse) => {
-      localStorage.setItem('token', response.accessToken);
-      this.currentUserSig.set(response.user);
-      return true;
-    }),
-    catchError((error) => {
-      this.currentUserSig.set(null);
-      return of(false);
-    })
-  );
-}
+  login(credentials: { email: string, password: string}): Observable<boolean> {
+    return this.http.post<LoginResponse>('http://localhost:3000/auth/login', credentials).pipe(
+      map((response: LoginResponse) => {
+        this.setAuthentication(response.accessToken, response.user);
+        return true;
+      }),
+      catchError((error) => {
+        this.currentUserSig.set(null);
+        return of(false);
+      })
+    );
+  }
 
   logout() {
     localStorage.removeItem('token');
@@ -39,6 +38,10 @@ login(credentials: { email: string, password: string}): Observable<boolean> {
   }
 
 
+  setAuthentication(token, user) {
+      localStorage.setItem('token', token);
+      this.currentUserSig.set(user);
+  }
 
 }
 
