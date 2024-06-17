@@ -52,6 +52,12 @@ export const routes: Routes = [
         canActivate: [authGuard],
         loadComponent: () => import('./core/units/units-list/units-list.component').then(m => m.UnitsListComponent),
       },
+        {
+        path: 'units/view/:id',
+        data: { permissions: ['ASSOCIATE']},
+        canActivate: [authGuard],
+        loadComponent: () => import('./core/units/units-view/units-view.component').then(m => m.UnitsViewComponent),
+      },
       {
         path: 'specialties',
         data: { permissions: ['ADMIN']},
