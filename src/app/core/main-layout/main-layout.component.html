@@ -17,8 +17,9 @@
 <mat-drawer-container autosize>
   <mat-drawer #drawer opened="true" mode="side" position="start">
     <mat-nav-list>
-      <mat-list-item *ngFor="let menuItem of this.permissionService.getMenuItens(authService.currentUserSig()?.role)">
-        <button class="flex items-center gap-2" [routerLink]="menuItem.link" mat-button-icon>
+      <mat-list-item [routerLink]="menuItem.link"
+        *ngFor="let menuItem of this.permissionService.getMenuItens(authService.currentUserSig()?.role)">
+        <button class="flex items-center gap-2" mat-button-icon>
           <mat-icon>{{ menuItem.icon}}</mat-icon>
           {{ menuItem.label }}
         </button>
@@ -27,7 +28,7 @@
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <div style="text-align: center;min-height: 600px;">
+    <div class="py-5 px-16" style="text-align: center;min-height: 600px;">
 
       <router-outlet></router-outlet>
     </div>
