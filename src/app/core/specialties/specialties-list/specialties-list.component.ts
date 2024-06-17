@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -16,11 +16,17 @@ import { ConfirmModalComponent } from '../../shared/components/confirm-modal/con
 import { NotificationService } from '../../shared/services/notification.service';
 import { SpecialtiesService } from '../shared/specialties.service';
 import { InfoModalComponent } from '../../shared/components/info-modal/info-modal.component';
+import { MatPaginatorIntlPtBr } from '../../shared/settings/mat-paginator-intl-pt-br.settings';
+import { Router, RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-specialties-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule, MatButtonModule, RouterModule],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr }
+  ],
   templateUrl: './specialties-list.component.html',
   styleUrl: './specialties-list.component.scss'
 })
@@ -35,6 +41,7 @@ export class SpecialtiesListComponent {
   authService = inject(AuthService);
   dialog = inject(MatDialog)
   notificationService = inject(NotificationService);
+  router = inject(Router);
 
   constructor() {
     this.dataSource = new MatTableDataSource<Specialty>();
@@ -76,7 +83,7 @@ export class SpecialtiesListComponent {
   }
 
   editSpecialty(id: string) {
-    console.log('Edit specialty', id);
+   this.router.navigate([`/specialties/edit/${id}`]);
   }
 
   deleteSpecialty(specialty: Specialty) {
@@ -89,10 +96,11 @@ export class SpecialtiesListComponent {
       ).subscribe({
       next: () => {
         this.dataSource.data = this.dataSource.data.filter(d => d.specialtyId !== specialty.specialtyId);
-        this.notificationService.showNotification({ message: 'Excluído com sucesso!', type: 'success', title: 'Médico Excluído', duration: 3000});
+        this.notificationService.showNotification({ message: 'Excluída com sucesso!', type: 'success', title: 'Especialidade Excluída', duration: 3000});
       },
       error: (error) => {
-      const specialtyIsAssociated = error.message.includes('associated with');
+        const { message } = error.error;
+      const specialtyIsAssociated = message.includes('associated with');
       if(specialtyIsAssociated) {
         const dialogRef = this.dialog.open(InfoModalComponent, {
           data: {
@@ -102,7 +110,7 @@ export class SpecialtiesListComponent {
         });
         return;
       }
-        this.notificationService.showNotification({ message: 'Erro ao excluir médico', type: 'error', title: 'Erro'});
+        this.notificationService.showNotification({ message: 'Erro ao excluir especialidade', type: 'error', title: 'Erro'});
       }
     });
   }
