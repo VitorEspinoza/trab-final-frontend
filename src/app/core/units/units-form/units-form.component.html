@@ -1,0 +1,68 @@
+<form [formGroup]="unitsForm" (ngSubmit)="onSubmit()">
+  <h2 class="title flex items-start">Dados da Unidade</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name" required>
+    <mat-error *ngIf="unitsForm.get('name').hasError('required')">O nome é obrigatório</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nome de Exibição</mat-label>
+    <input matInput formControlName="displayName" required>
+    <mat-error *ngIf="unitsForm.get('displayName').hasError('required')">O nome de exibição é obrigatório</mat-error>
+  </mat-form-field>
+
+  <app-specialties-select [selectedSpecialties]="savedSpecialties" [parentForm]="unitsForm"></app-specialties-select>
+
+
+  <div formGroupName="address" class="flex flex-col">
+    <h2 class="title flex items-start">Endereço</h2>
+    <div class=" flex gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Rua</mat-label>
+        <input matInput formControlName="street" required>
+        <mat-error *ngIf="unitsForm.get('address.street').hasError('required')">A rua é obrigatória</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="number" required>
+        <mat-error *ngIf="unitsForm.get('address.number').hasError('required')">O número é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="flex gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Bairro</mat-label>
+        <input matInput formControlName="neighborhood" required>
+        <mat-error *ngIf="unitsForm.get('address.neighborhood').hasError('required')">O bairro é obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Cidade</mat-label>
+        <input matInput formControlName="city" required>
+        <mat-error *ngIf="unitsForm.get('address.city').hasError('required')">A cidade é obrigatória</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="state" required>
+        <mat-error *ngIf="unitsForm.get('address.state').hasError('required')">O estado é obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>CEP</mat-label>
+        <input matInput formControlName="zipCode" required>
+        <mat-error *ngIf="unitsForm.get('address.zipCode').hasError('required')">O CEP é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="flex gap-4 py-4">
+    <button mat-raised-button color="secondary" type="button" (click)="this.goBack()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [class.spinner]="submittingForm"
+      [disabled]="unitsForm.invalid || submittingForm">Salvar</button>
+  </div>
+</form>

@@ -17,12 +17,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UnitsService } from '../shared/units.service';
 import { MatPaginatorIntlPtBr } from '../../shared/settings/mat-paginator-intl-pt-br.settings';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-units-list',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatMenuModule, MatTooltipModule, MatButtonModule, RouterModule],
   providers: [
    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr }
   ],
@@ -111,7 +112,7 @@ displayedColumns: string[] = ['displayName', 'address', 'specialties'];
   }
 
   editUnit(id: string) {
-    console.log('Edit unit', id);
+    this.router.navigate([`/units/edit/${id}`]);
   }
 
   deleteUnit(unit: Unit) {
