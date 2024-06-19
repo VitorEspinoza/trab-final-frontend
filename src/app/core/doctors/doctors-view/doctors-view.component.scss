@@ -1,0 +1,50 @@
+h2 {
+  color: #333;
+  font-size: 2em;
+}
+
+h3 {
+  color: #666;
+  font-size: 1.5em;
+  margin-top: 1em;
+}
+
+p {
+  color: #666;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.doctor-container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #eee;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-main {
+  background-color: #007bff;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 10px;
+  font-size: 0.8em;
+}

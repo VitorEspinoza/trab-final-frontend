@@ -1,0 +1,12 @@
+<div [ngClass]="notificationClass">
+  <div class="notification-content">
+    <div class="flex items-start gap-2">
+      <h1 class="title">{{ data.title }}</h1>
+      <mat-icon style="font-size: 22px; vertical-align: middle;">
+        {{icon}}
+      </mat-icon>
+    </div>
+    <p class="message">{{ data.message }}</p>
+  </div>
+  <button class="close-button" (click)="data.dismiss('ok')">&times;</button>
+</div>

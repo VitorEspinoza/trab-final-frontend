@@ -1,0 +1,107 @@
+<div [ngClass]="isRegister ? 'form-container' : ''">
+  <form [formGroup]="associatesForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="associatesForm.get('name').hasError('required')">O nome é obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+      <mat-error *ngIf="associatesForm.get('email').hasError('required')">O email é obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!isEdit">
+      <mat-label>Senha</mat-label>
+      <input [type]="inputType" formControlName="password" matInput required />
+      <button (click)="toggleVisibility()" mat-icon-button matSuffix [matTooltip]="visibilityInfo" type="button">
+        <mat-icon>{{visibilityIcon}}</mat-icon>
+      </button>
+      <mat-error *ngIf="associatesForm.get('password').hasError('required')">A Senha é obrigatória</mat-error>
+      <mat-error *ngIf="associatesForm.get('password').errors?.['passwordStrength']">
+        {{ associatesForm.get('password').errors?.['passwordStrength'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>CPF</mat-label>
+      <input matInput formControlName="document" required>
+      <mat-error *ngIf="associatesForm.get('document').hasError('required')">O documento é obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Data de Nascimento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthAt" required>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="associatesForm.get('birthAt').hasError('required')">A data de nascimento é
+        obrigatória</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="phone" required>
+      <mat-error *ngIf="associatesForm.get('phone').hasError('required')">O telefone é obrigatório</mat-error>
+    </mat-form-field>
+
+    <h2 class="title flex items-start">Endereço</h2>
+    <div class=" flex gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Rua</mat-label>
+        <input matInput formControlName="street" required>
+        <mat-error *ngIf="associatesForm.get('street').hasError('required')">A rua é obrigatória</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="number" required>
+        <mat-error *ngIf="associatesForm.get('number').hasError('required')">O número é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="flex gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Bairro</mat-label>
+        <input matInput formControlName="neighborhood" required>
+        <mat-error *ngIf="associatesForm.get('neighborhood').hasError('required')">O bairro é obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Cidade</mat-label>
+        <input matInput formControlName="city" required>
+        <mat-error *ngIf="associatesForm.get('city').hasError('required')">A cidade é obrigatória</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="state" required>
+        <mat-error *ngIf="associatesForm.get('state').hasError('required')">O estado é obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>CEP</mat-label>
+        <input matInput formControlName="zipCode" required>
+        <mat-error *ngIf="associatesForm.get('zipCode').hasError('required')">O CEP é obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex items-start">
+      <label for="file-upload" class="custom-file-upload ">
+        <mat-icon>photo_camera</mat-icon> {{ photoLabel }}
+      </label>
+    </div>
+    <input id="file-upload" type="file" style="display: none;" (change)="onFileSelected($event)">
+
+
+    <div class="flex gap-4 py-4">
+      <button mat-raised-button color="secondary" type="button" (click)="this.goBack()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [class.spinner]="submittingForm"
+        [disabled]="associatesForm.invalid || submittingForm">Salvar</button>
+    </div>
+  </form>
+
+</div>

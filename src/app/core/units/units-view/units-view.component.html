@@ -1,0 +1,26 @@
+<h2>{{ unit?.displayName }}</h2>
+
+<div class="unit-container flex flex-col items-center gap-4 p-4">
+  <div class="flex gap-8">
+    <div class="flex flex-col items-start">
+      <h3>Dados da Unidade</h3>
+
+      <p><strong>Rua:</strong> {{ unit?.address.street }}</p>
+      <p><strong>Número:</strong> {{ unit?.address.number }}</p>
+      <p><strong>Bairro:</strong> {{ unit?.address.neighborhood }}</p>
+      <p><strong>Cidade:</strong> {{ unit?.address.city }}</p>
+      <p><strong>Estado:</strong> {{ unit?.address.state }}</p>
+      <p><strong>CEP:</strong> {{ unit?.address.zipCode | cep}}</p>
+    </div>
+    <div class="flex flex-col items-start">
+      <h3>Especialidades</h3>
+      <div class="specialties">
+        <mat-chip-set>
+          <mat-chip *ngFor="let specialty of unit?.specialties" selected="true">
+            {{ specialty.name }} {{ specialty.isPrincipalSpecialty ? '(Principal)' : ''}}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+  </div>
+</div>
