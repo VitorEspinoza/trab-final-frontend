@@ -56,7 +56,6 @@ export class AssociatesFormComponent implements OnInit{
   isRegister = this.route.snapshot.url[0]?.path === 'register';
 
   ngOnInit() {
-    console.log(this.route.snapshot)
     this.associatesForm = this.buildForm();
     this.isEdit ? this.editFlow() : this.createFlow();
   }
@@ -64,7 +63,7 @@ export class AssociatesFormComponent implements OnInit{
 buildForm() {
     let formGroup = {
       name: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
       document: ['', Validators.required],
       birthAt: [null, Validators.required],
       phone: ['', Validators.required],
